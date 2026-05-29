@@ -7,6 +7,12 @@ function normalizeHtml(html: string) {
       // assets paths
       .replaceAll('src="assets/', 'src="/assets/')
       .replaceAll("src='assets/", "src='/assets/")
+      .replace(/srcset="([^"]*)"/g, (_, val: string) =>
+        `srcset="${val.replaceAll("assets/", "/assets/")}"`,
+      )
+      .replace(/srcset='([^']*)'/g, (_, val: string) =>
+        `srcset='${val.replaceAll("assets/", "/assets/")}'`,
+      )
       .replaceAll('href="./assets/', 'href="/assets/')
       .replaceAll("href='./assets/", "href='/assets/")
       // internal routes

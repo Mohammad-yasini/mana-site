@@ -136,10 +136,11 @@ a {
 }
 
 .security-section .brand-logos img {
+  flex-shrink: 0;
+  display: block;
+  height: 24px;
   width: auto;
-  height: auto;
-  max-height: 24px;
-  max-width: 140px;
+  max-width: none;
   object-fit: contain;
   -webkit-filter: grayscale(100%);
   filter: grayscale(100%);
