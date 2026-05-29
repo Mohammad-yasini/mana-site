@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 import { getPool } from "@/lib/db";
 import { plainTextFromHtml, preparePostBody } from "@/lib/blogPostBody";
 import type { RowDataPacket } from "mysql2";
+import "@/app/app-content.css";
 
 export const dynamic = "force-dynamic";
 

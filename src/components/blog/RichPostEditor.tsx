@@ -1,5 +1,6 @@
 "use client";
 
+import "@/app/editor.css";
 import Link from "@tiptap/extension-link";
 import Placeholder from "@tiptap/extension-placeholder";
 import TextAlign from "@tiptap/extension-text-align";

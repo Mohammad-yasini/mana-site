@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
-import "./globals.css";
+import { headers } from "next/headers";
 import Script from "next/script";
+import { SiteStylesHead } from "@/components/SiteStylesHead";
+import { HOME_ASYNC_STYLES } from "@/lib/asyncStyles";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { SiteChrome } from "@/components/SiteChrome";
@@ -13,20 +15,22 @@ export const metadata: Metadata = {
   },
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const h = await headers();
+  const pathname = h.get("x-pathname") ?? "";
+  const extraStyles = pathname === "/" ? HOME_ASYNC_STYLES : [];
+
   return (
     <html lang="fa" dir="rtl" className="h-full antialiased">
       <head>
         <meta charSet="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-        <link rel="stylesheet" href="/assets/fonts/vazirmatn/vazirmatn-local.css" />
-        <link rel="stylesheet" href="/assets/vendor/bootstrap/bootstrap.rtl.min.css" />
-        <link href="/assets/styles/style.css" rel="stylesheet" />
+        <SiteStylesHead extraStyles={extraStyles} />
       </head>
       <body className="min-h-full flex flex-col">
         <SiteChrome header={<Header />} footer={<Footer />}>

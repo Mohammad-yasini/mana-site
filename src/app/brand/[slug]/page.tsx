@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { getPool } from "@/lib/db";
 import type { RowDataPacket } from "mysql2";
+import "@/app/app-content.css";
 
 export const dynamic = "force-dynamic";
 

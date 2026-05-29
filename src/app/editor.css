@@ -1,0 +1,13 @@
+.tiptap-editor-content .tiptap-editor-prose {
+  min-height: 280px;
+  padding: 12px 14px;
+  outline: none;
+}
+
+.tiptap-editor-content .tiptap-editor-prose p.is-editor-empty:first-child::before {
+  color: #6c757d;
+  content: attr(data-placeholder);
+  float: right;
+  height: 0;
+  pointer-events: none;
+}

@@ -12,8 +12,6 @@ export default function Home() {
 
   return (
     <>
-      <link rel="stylesheet" href="/assets/vendor/owlcarousel/owl.carousel.min.css" />
-      <link rel="stylesheet" href="/assets/vendor/owlcarousel/owl.theme.default.min.css" />
       <style>{`
         .home-motion .brand-box,
         .home-motion .product-box,
