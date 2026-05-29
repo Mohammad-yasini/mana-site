@@ -3,6 +3,7 @@ import "./globals.css";
 import Script from "next/script";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
+import { SiteChrome } from "@/components/SiteChrome";
 
 export const metadata: Metadata = {
   title: "Mana Site",
@@ -38,9 +39,9 @@ export default function RootLayout({
         <link href="/assets/styles/style.css" rel="stylesheet" />
       </head>
       <body className="min-h-full flex flex-col">
-        <Header />
-        {children}
-        <Footer />
+        <SiteChrome header={<Header />} footer={<Footer />}>
+          {children}
+        </SiteChrome>
       </body>
       <Script
         src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"

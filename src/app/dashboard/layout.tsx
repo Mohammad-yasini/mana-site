@@ -1,7 +1,8 @@
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 import { ADMIN_SESSION_COOKIE, verifyAdminJwt } from "@/lib/auth";
-import { DashboardNav } from "@/components/DashboardNav";
+import { DashboardShell } from "@/components/admin/DashboardShell";
+import "./dashboard.css";
 
 export default async function DashboardLayout({
   children,
@@ -10,13 +11,9 @@ export default async function DashboardLayout({
 }) {
   const cookieStore = await cookies();
   const token = cookieStore.get(ADMIN_SESSION_COOKIE)?.value;
-  if (!token || !verifyAdminJwt(token)) {
+  const payload = token ? verifyAdminJwt(token) : null;
+  if (!payload) {
     redirect("/login");
   }
-  return (
-    <>
-      <DashboardNav />
-      {children}
-    </>
-  );
+  return <DashboardShell adminEmail={payload.email}>{children}</DashboardShell>;
 }
