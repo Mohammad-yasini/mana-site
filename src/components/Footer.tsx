@@ -44,7 +44,7 @@ export async function Footer() {
           <div className="left-nner">
             <div className="footer-left">
               <div className="links-col">
-                <h4>{cfg.brandsColumnTitle}</h4>
+                <h3>{cfg.brandsColumnTitle}</h3>
                 <ul>
                   {cfg.brandsLinks.map((item, i) => (
                     <li key={`b-${i}`}>
@@ -55,7 +55,7 @@ export async function Footer() {
               </div>
 
               <div className="links-col">
-                <h4>{cfg.userColumnTitle}</h4>
+                <h3>{cfg.userColumnTitle}</h3>
                 <ul>
                   {cfg.userLinks.map((item, i) => (
                     <li key={`u-${i}`}>
@@ -66,7 +66,7 @@ export async function Footer() {
               </div>
 
               <div className="links-col">
-                <h4>{cfg.quickColumnTitle}</h4>
+                <h3>{cfg.quickColumnTitle}</h3>
                 <ul>
                   {cfg.quickLinks.map((item, i) => (
                     <li key={`q-${i}`}>

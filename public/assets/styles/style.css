@@ -12,7 +12,7 @@ html {
 }
 
 .color1 {
-  color: #078f7e;
+  color: #0a7d6e;
 }
 
 .dirLTR {
@@ -58,9 +58,16 @@ a {
 }
 
 .header .navbar-collapse .menu-item {
-  display: inline-block;
-  padding: 6px 10px;
+  display: inline-flex;
+  align-items: center;
+  min-height: 40px;
+  padding: 8px 12px;
   color: black;
+}
+
+.header .navbar-toggler {
+  min-width: 44px;
+  min-height: 44px;
 }
 
 .header .navbar-collapse .represent-btn {
@@ -156,7 +163,7 @@ a {
 }
 
 .security-section .action-btn a {
-  background-color: #078f7e;
+  background-color: #0a7d6e;
   color: #fff;
   padding: 10px 20px;
   border: none;
@@ -261,7 +268,7 @@ a {
 
 .offers-container .btn-link {
   background-color: #fff;
-  color: #0bae99;
+  color: #0a7d6e;
   padding: 12px 20px;
   border-radius: 30px;
   font-size: 1rem;
@@ -497,7 +504,7 @@ a {
 .about-section .about-box h3 {
   font-size: 18px;
   font-weight: bold;
-  color: #07907f;
+  color: #0a7d6e;
   margin-bottom: 10px;
 }
 
@@ -605,7 +612,7 @@ a {
 
 .mana-about .en-title .title {
   font-size: 16px;
-  color: #868686;
+  color: #6b6b6b;
   margin: 15px 0;
 }
 
@@ -732,7 +739,7 @@ a {
 }
 
 .brands-section .red {
-  color: #ff0000;
+  color: #cc0000;
 }
 
 .brands-section .gray {
@@ -740,7 +747,7 @@ a {
 }
 
 .brands-section .blue {
-  color: #0598ce;
+  color: #0a6aa0;
 }
 
 .brands-section .arrow {
@@ -1047,8 +1054,8 @@ a {
 
 .footer-section .contact-box a {
   display: block;
-  border: 1px solid #078f7e;
-  color: #078f7e;
+  border: 1px solid #0a7d6e;
+  color: #0a7d6e;
   text-align: left;
   direction: ltr;
   border-radius: 8px;
@@ -1074,10 +1081,11 @@ a {
   min-width: 120px;
 }
 
+.footer-section .links-col h3,
 .footer-section .links-col h4 {
   font-size: 14px;
   font-weight: bold;
-  color: #078f7e;
+  color: #0a7d6e;
   margin-bottom: 10px;
 }
 
@@ -1095,6 +1103,13 @@ a {
 
 .footer-section .links-col li a {
   color: #4f4f4f;
+  display: inline-block;
+  padding: 5px 2px;
+  min-height: 24px;
+}
+
+.footer-section .links-col li {
+  margin-bottom: 8px;
 }
 
 .footer-section .offers-content h2 {
