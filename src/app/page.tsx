@@ -12,6 +12,8 @@ export default function Home() {
 
   return (
     <>
+      <link rel="stylesheet" href="/assets/vendor/owlcarousel/owl.carousel.min.css" />
+      <link rel="stylesheet" href="/assets/vendor/owlcarousel/owl.theme.default.min.css" />
       <style>{`
         .home-motion .brand-box,
         .home-motion .product-box,
@@ -77,14 +79,8 @@ export default function Home() {
           })();
         `}
       </Script>
-      <Script
-        src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"
-        strategy="afterInteractive"
-      />
-      <Script
-        src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.0.0-beta.3/owl.carousel.min.js"
-        strategy="afterInteractive"
-      />
+      <Script src="/assets/vendor/jquery/jquery.min.js" strategy="afterInteractive" />
+      <Script src="/assets/vendor/owlcarousel/owl.carousel.min.js" strategy="afterInteractive" />
       <Script id="home-owl-init" strategy="afterInteractive">
         {`
           (function () {
