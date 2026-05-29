@@ -1,0 +1,26 @@
+/* Intentionally minimal while we render a Bootstrap-based HTML template.
+   Tailwind base/preflight and global color-scheme styles can break the template. */
+
+.tiptap-editor-content .tiptap-editor-prose {
+  min-height: 280px;
+  padding: 12px 14px;
+  outline: none;
+}
+
+.tiptap-editor-content .tiptap-editor-prose p.is-editor-empty:first-child::before {
+  color: #6c757d;
+  content: attr(data-placeholder);
+  float: right;
+  height: 0;
+  pointer-events: none;
+}
+
+.blog-post-body {
+  line-height: 1.9;
+  word-break: break-word;
+}
+
+.blog-post-body img {
+  max-width: 100%;
+  height: auto;
+}
