@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { headers } from "next/headers";
 import Script from "next/script";
 import { SiteStylesHead } from "@/components/SiteStylesHead";
-import { HOME_ASYNC_STYLES } from "@/lib/asyncStyles";
+import { HOME_ASYNC_STYLES, HOME_LCP_IMAGE } from "@/lib/asyncStyles";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { SiteChrome } from "@/components/SiteChrome";
@@ -23,6 +23,7 @@ export default async function RootLayout({
   const h = await headers();
   const pathname = h.get("x-pathname") ?? "";
   const extraStyles = pathname === "/" ? HOME_ASYNC_STYLES : [];
+  const lcpImage = pathname === "/" ? HOME_LCP_IMAGE : null;
 
   return (
     <html lang="fa" dir="rtl" className="h-full antialiased">
@@ -30,7 +31,7 @@ export default async function RootLayout({
         <meta charSet="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-        <SiteStylesHead extraStyles={extraStyles} />
+        <SiteStylesHead extraStyles={extraStyles} lcpImage={lcpImage} />
       </head>
       <body className="min-h-full flex flex-col">
         <SiteChrome header={<Header />} footer={<Footer />}>

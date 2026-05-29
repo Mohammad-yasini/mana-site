@@ -4,13 +4,16 @@ import {
   SITE_ASYNC_STYLES,
 } from "@/lib/asyncStyles";
 
-type Props = { extraStyles?: readonly string[] };
+type Props = { extraStyles?: readonly string[]; lcpImage?: string | null };
 
-export function SiteStylesHead({ extraStyles = [] }: Props) {
+export function SiteStylesHead({ extraStyles = [], lcpImage = null }: Props) {
   const asyncHrefs = [...SITE_ASYNC_STYLES, ...extraStyles];
 
   return (
     <>
+      {lcpImage ? (
+        <link rel="preload" as="image" href={lcpImage} fetchPriority="high" />
+      ) : null}
       <link
         rel="preload"
         href="/assets/fonts/vazirmatn/vazirmatn-arabic-400-normal.woff2"

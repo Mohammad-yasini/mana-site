@@ -9,6 +9,8 @@ export const SITE_ASYNC_STYLES = [
   "/assets/styles/style.css",
 ] as const;
 
+export const HOME_LCP_IMAGE = "/assets/images/img/Cameras1.png";
+
 export const HOME_ASYNC_STYLES = [
   "/assets/vendor/owlcarousel/owl.carousel.min.css",
   "/assets/vendor/owlcarousel/owl.theme.default.min.css",
