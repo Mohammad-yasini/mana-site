@@ -136,7 +136,11 @@ a {
 }
 
 .security-section .brand-logos img {
-  width: 80px;
+  width: auto;
+  height: auto;
+  max-height: 24px;
+  max-width: 140px;
+  object-fit: contain;
   -webkit-filter: grayscale(100%);
   filter: grayscale(100%);
   opacity: 0.7;
@@ -393,9 +397,20 @@ a {
   gap: 10px;
 }
 
-.product-section .btn-link .arrow {
+.product-section .btn-link .arrow,
+.btn-link .icon-arrow,
+.btn-link img[src*="si_arrow-right-fill"] {
+  width: 26px;
   height: 26px;
-  width: auto;
+  flex-shrink: 0;
+}
+
+.product-section .btn-link .arrow,
+.brands-section .btn-link img[src*="si_arrow-right-fill"],
+.security-section .action-btn img[src*="si_arrow-right-fill"],
+.mana-about .btn-link img[src*="si_arrow-right-fill"],
+.offers-section .btn-link img[src*="si_arrow-right-fill"] {
+  filter: brightness(0) invert(1);
 }
 
 .product-section .product-image {
@@ -994,8 +1009,10 @@ a {
 }
 
 .footer-section .badges img {
-  width: 80px;
+  width: auto;
   height: auto;
+  max-width: 70px;
+  object-fit: contain;
 }
 
 .footer-section .copyright {

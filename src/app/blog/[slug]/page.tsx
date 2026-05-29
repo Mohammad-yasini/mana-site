@@ -194,7 +194,7 @@ export default async function BlogPostPage({ params }: Props) {
               <Link href="/services" className="services-btn services-btn--primary">
                 درخواست مشاوره
                 <img
-                  src="/assets/images/app-icons/si_arrow-right-fill.png"
+                  src="/assets/images/app-icons/si_arrow-right-fill.svg"
                   alt=""
                   width={20}
                   height={20}

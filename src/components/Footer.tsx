@@ -1,5 +1,5 @@
 import DOMPurify from "isomorphic-dompurify";
-import { getSiteFooterConfig } from "@/lib/siteFooter";
+import { getSiteFooterConfig, badgeDimensions } from "@/lib/siteFooter";
 
 const phoneHtmlSanitize = {
   ALLOWED_TAGS: ["small", "span", "br", "b", "i", "strong", "em"],
@@ -104,11 +104,21 @@ export async function Footer() {
           </div>
           <p className="footer-desc">{cfg.rightDescription}</p>
           <div className="badges">
-            {cfg.badges.map((b, i) =>
-              b.src ? (
-                <img key={`bd-${i}`} src={b.src} alt={b.alt} />
-              ) : null,
-            )}
+            {cfg.badges.map((b, i) => {
+              if (!b.src) return null;
+              const dims = badgeDimensions(b.src);
+              return (
+                <img
+                  key={`bd-${i}`}
+                  src={b.src}
+                  alt={b.alt}
+                  width={b.width ?? dims.width}
+                  height={b.height ?? dims.height}
+                  loading="lazy"
+                  decoding="async"
+                />
+              );
+            })}
           </div>
           <p
             className="copyright"

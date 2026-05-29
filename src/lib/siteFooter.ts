@@ -12,7 +12,20 @@ export type FooterPhoneItem = {
 export type FooterBadgeItem = {
   src: string;
   alt: string;
+  width?: number;
+  height?: number;
 };
+
+const BADGE_NATURAL: Record<string, { width: number; height: number }> = {
+  "image5.png": { width: 70, height: 87 },
+  "image6.png": { width: 70, height: 92 },
+  "image9.png": { width: 70, height: 88 },
+};
+
+export function badgeDimensions(src: string): { width?: number; height?: number } {
+  const file = src.split("/").pop() ?? "";
+  return BADGE_NATURAL[file] ?? {};
+}
 
 export type SiteFooterConfig = {
   brandsColumnTitle: string;

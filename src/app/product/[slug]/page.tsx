@@ -150,7 +150,7 @@ export default async function ProductPage({ params }: Props) {
               <Link href="/contact" className="services-btn services-btn--primary">
                 درخواست خرید
                 <img
-                  src="/assets/images/app-icons/si_arrow-right-fill.png"
+                  src="/assets/images/app-icons/si_arrow-right-fill.svg"
                   alt=""
                   width={20}
                   height={20}
