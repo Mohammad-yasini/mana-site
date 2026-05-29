@@ -85,6 +85,12 @@ const I = {
       <path d="M21 21l-4.3-4.3M8.5 11h5M11 8.5v5" />
     </svg>
   ),
+  robot: (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <rect x="4" y="4" width="16" height="16" rx="2" />
+      <path d="M8 9h8M8 13h5M8 17h3" />
+    </svg>
+  ),
 };
 
 const GROUPS: NavGroup[] = [
@@ -116,6 +122,7 @@ const GROUPS: NavGroup[] = [
       { href: "/dashboard/header", label: "هدر سایت", icon: I.layoutTop },
       { href: "/dashboard/footer", label: "فوتر سایت", icon: I.layoutBottom },
       { href: "/dashboard/seo", label: "سئوی برگه‌ها", icon: I.seo },
+      { href: "/dashboard/robots", label: "robots.txt", icon: I.robot },
     ],
   },
 ];
@@ -130,6 +137,7 @@ const TITLES: { match: (p: string) => boolean; title: string }[] = [
   { match: (p) => p.startsWith("/dashboard/header"), title: "هدر سایت" },
   { match: (p) => p.startsWith("/dashboard/footer"), title: "فوتر سایت" },
   { match: (p) => p.startsWith("/dashboard/seo"), title: "سئوی برگه‌ها" },
+  { match: (p) => p.startsWith("/dashboard/robots"), title: "robots.txt" },
 ];
 
 function isActive(pathname: string, item: NavItem): boolean {

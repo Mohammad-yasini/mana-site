@@ -125,3 +125,10 @@ CREATE TABLE IF NOT EXISTS `page_seo` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `page_seo_key_unique` (`page_key`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+CREATE TABLE IF NOT EXISTS `site_robots_config` (
+  `id` TINYINT NOT NULL DEFAULT 1,
+  `content` MEDIUMTEXT NOT NULL,
+  `updated_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
