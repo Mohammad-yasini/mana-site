@@ -11,6 +11,8 @@ export function DashboardNav() {
         <Link href="/dashboard/posts">نوشته‌ها</Link>
         <Link href="/dashboard/posts/new">نوشتهٔ جدید</Link>
         <Link href="/dashboard/categories">دسته‌های وبلاگ</Link>
+        <Link href="/dashboard/brands">برندها</Link>
+        <Link href="/dashboard/products">محصولات</Link>
         <Link href="/dashboard/representation">درخواست‌های نمایندگی</Link>
         <Link href="/dashboard/header">هدر سایت</Link>
         <Link href="/dashboard/footer">فوتر سایت</Link>

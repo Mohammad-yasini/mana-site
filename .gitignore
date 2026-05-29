@@ -42,3 +42,6 @@ next-env.d.ts
 
 # local archives
 *.zip
+
+# stray nested repo
+mana-site/

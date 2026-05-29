@@ -19,6 +19,12 @@ export default function DashboardPage() {
           <Link href="/dashboard/categories">دسته‌های وبلاگ (افزودن / ویرایش)</Link>
         </li>
         <li>
+          <Link href="/dashboard/brands">برندها (افزودن / ویرایش)</Link>
+        </li>
+        <li>
+          <Link href="/dashboard/products">محصولات (افزودن محصول داخل برند)</Link>
+        </li>
+        <li>
           <Link href="/dashboard/representation">درخواست‌های اعطای نمایندگی</Link>
         </li>
       </ul>
