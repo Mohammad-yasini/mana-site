@@ -8,6 +8,9 @@ import { SiteChrome } from "@/components/SiteChrome";
 export const metadata: Metadata = {
   title: "Mana Site",
   description: "Mana Electronic — Next.js app",
+  verification: {
+    google: "kTPS1JThw3vIPIt35By0yclVV64ueuyZVgAskflVRtg",
+  },
 };
 
 export default function RootLayout({
