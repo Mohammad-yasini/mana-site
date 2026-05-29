@@ -12,31 +12,27 @@ type Counts = {
   repsNew: number;
 };
 
-async function getCounts(): Promise<Counts> {
-  const empty: Counts = { posts: 0, categories: 0, brands: 0, products: 0, reps: 0, repsNew: 0 };
+async function countOf(sql: string): Promise<number> {
   try {
     const pool = getPool();
-    const [rows] = await pool.query(
-      `SELECT
-        (SELECT COUNT(*) FROM posts) AS posts,
-        (SELECT COUNT(*) FROM categories) AS categories,
-        (SELECT COUNT(*) FROM brands) AS brands,
-        (SELECT COUNT(*) FROM products) AS products,
-        (SELECT COUNT(*) FROM representation_requests) AS reps,
-        (SELECT COUNT(*) FROM representation_requests WHERE status = 'new') AS repsNew`,
-    );
-    const r = (rows as Record<string, number>[])[0] ?? {};
-    return {
-      posts: Number(r.posts) || 0,
-      categories: Number(r.categories) || 0,
-      brands: Number(r.brands) || 0,
-      products: Number(r.products) || 0,
-      reps: Number(r.reps) || 0,
-      repsNew: Number(r.repsNew) || 0,
-    };
+    const [rows] = await pool.query(sql);
+    const r = (rows as Record<string, unknown>[])[0] ?? {};
+    return Number((r as { c?: unknown }).c) || 0;
   } catch {
-    return empty;
+    return 0;
   }
+}
+
+async function getCounts(): Promise<Counts> {
+  const [posts, categories, brands, products, reps, repsNew] = await Promise.all([
+    countOf("SELECT COUNT(*) AS c FROM blog_posts"),
+    countOf("SELECT COUNT(*) AS c FROM blog_categories"),
+    countOf("SELECT COUNT(*) AS c FROM brands"),
+    countOf("SELECT COUNT(*) AS c FROM products"),
+    countOf("SELECT COUNT(*) AS c FROM representation_requests"),
+    countOf("SELECT COUNT(*) AS c FROM representation_requests WHERE status = 'new'"),
+  ]);
+  return { posts, categories, brands, products, reps, repsNew };
 }
 
 const ICONS = {
