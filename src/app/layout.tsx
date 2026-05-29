@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { headers } from "next/headers";
 import Script from "next/script";
 import { SiteStylesHead } from "@/components/SiteStylesHead";
-import { HOME_ASYNC_STYLES, HOME_LCP_IMAGE } from "@/lib/asyncStyles";
+import { HOME_SYNC_STYLES, HOME_LCP_IMAGE } from "@/lib/asyncStyles";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { SiteChrome } from "@/components/SiteChrome";
@@ -22,7 +22,7 @@ export default async function RootLayout({
 }>) {
   const h = await headers();
   const pathname = h.get("x-pathname") ?? "";
-  const extraStyles = pathname === "/" ? HOME_ASYNC_STYLES : [];
+  const syncStyles = pathname === "/" ? HOME_SYNC_STYLES : [];
   const lcpImage = pathname === "/" ? HOME_LCP_IMAGE : null;
 
   return (
@@ -31,13 +31,25 @@ export default async function RootLayout({
         <meta charSet="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-        <SiteStylesHead extraStyles={extraStyles} lcpImage={lcpImage} />
+        <SiteStylesHead syncStyles={syncStyles} lcpImage={lcpImage} />
       </head>
       <body className="min-h-full flex flex-col">
         <SiteChrome header={<Header />} footer={<Footer />}>
           {children}
         </SiteChrome>
       </body>
+      {pathname === "/" ? (
+        <>
+          <Script
+            src="/assets/vendor/jquery/jquery.min.js"
+            strategy="beforeInteractive"
+          />
+          <Script
+            src="/assets/vendor/owlcarousel/owl.carousel.min.js"
+            strategy="beforeInteractive"
+          />
+        </>
+      ) : null}
       <Script src="/assets/vendor/bootstrap/bootstrap.bundle.min.js" strategy="afterInteractive" />
       <Script src="/assets/js/site-cms.js" strategy="afterInteractive" />
     </html>

@@ -300,6 +300,12 @@ a {
   border-radius: 20px;
   margin-top: 20px;
   margin-bottom: 20px;
+  overflow: hidden;
+  max-width: 100%;
+}
+
+.productsHome .owl-carousel:not(.owl-loaded) {
+  overflow: hidden;
 }
 
 #sync1 .owl-next,

@@ -11,7 +11,8 @@ export const SITE_ASYNC_STYLES = [
 
 export const HOME_LCP_IMAGE = "/assets/images/img/Cameras1.png";
 
-export const HOME_ASYNC_STYLES = [
+/** Owl CSS must load before carousel init — async loading breaks layout. */
+export const HOME_SYNC_STYLES = [
   "/assets/vendor/owlcarousel/owl.carousel.min.css",
   "/assets/vendor/owlcarousel/owl.theme.default.min.css",
 ] as const;

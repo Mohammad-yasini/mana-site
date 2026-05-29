@@ -51,6 +51,13 @@ export default function Home() {
             transition: none !important;
           }
         }
+        .productsHome {
+          overflow: hidden;
+          max-width: 100%;
+        }
+        .productsHome .owl-carousel:not(.owl-loaded) {
+          overflow: hidden;
+        }
       `}</style>
       <main className="home-motion" dangerouslySetInnerHTML={{ __html: html }} />
       <Script id="home-motion-reveal" strategy="afterInteractive">
@@ -77,95 +84,129 @@ export default function Home() {
           })();
         `}
       </Script>
-      <Script id="home-vendors-owl" strategy="afterInteractive">
+      <Script id="home-owl-init" strategy="afterInteractive">
         {`
           (function () {
+            var SITE_CSS = [
+              "/assets/vendor/bootstrap/bootstrap.rtl.min.css",
+              "/assets/styles/style.css",
+            ];
+
+            function whenCssReady(callback) {
+              var pending = SITE_CSS.length;
+              var done = false;
+              function finish() {
+                pending--;
+                if (pending <= 0 && !done) {
+                  done = true;
+                  callback();
+                }
+              }
+              SITE_CSS.forEach(function (href) {
+                var link = document.querySelector(
+                  'link[rel="stylesheet"][href="' + href + '"]'
+                );
+                if (!link || link.media === "all" || link.sheet) {
+                  finish();
+                  return;
+                }
+                link.addEventListener("load", finish, { once: true });
+              });
+              setTimeout(function () {
+                if (!done) {
+                  done = true;
+                  callback();
+                }
+              }, 4000);
+            }
+
             function initOwl() {
               if (!window.jQuery || !window.jQuery.fn || !window.jQuery.fn.owlCarousel) return;
               var $ = window.jQuery;
-              $(document).ready(function () {
-                var sync1 = $("#sync1");
-                var sync2 = $("#sync2");
-                var sync3 = $("#sync3");
-                if (!sync1.length) return;
-                var slidesPerPage = 3;
-                var syncedSecondary = true;
+              var sync1 = $("#sync1");
+              var sync2 = $("#sync2");
+              var sync3 = $("#sync3");
+              if (!sync1.length || sync1.hasClass("owl-loaded")) return;
 
-                function fixNavText(arr) {
-                  return (arr || []).map(function (s) {
-                    return String(s).replaceAll('src="assets/', 'src="/assets/');
-                  });
-                }
+              var slidesPerPage = 3;
+              var syncedSecondary = true;
 
-                sync1
-                  .owlCarousel({
-                    items: 1,
-                    slideSpeed: 2000,
-                    nav: true,
-                    autoplay: false,
-                    dots: false,
-                    loop: true,
-                    responsiveRefreshRate: 200,
-                    navText: fixNavText([
-                      '<img src="/assets/images/app-icons/fluent-emoji-high-contrast_left-arrow.svg" alt="" />',
-                      '<img src="/assets/images/app-icons/fluent-emoji-high-contrast_right-arrow.svg" alt="" />',
-                    ]),
-                  })
-                  .on("changed.owl.carousel", syncPosition);
+              function fixNavText(arr) {
+                return (arr || []).map(function (s) {
+                  return String(s).replaceAll('src="assets/', 'src="/assets/');
+                });
+              }
+
+              sync1
+                .owlCarousel({
+                  items: 1,
+                  slideSpeed: 2000,
+                  nav: true,
+                  autoplay: false,
+                  dots: false,
+                  loop: true,
+                  responsiveRefreshRate: 200,
+                  navText: fixNavText([
+                    '<img src="/assets/images/app-icons/fluent-emoji-high-contrast_left-arrow.svg" alt="" />',
+                    '<img src="/assets/images/app-icons/fluent-emoji-high-contrast_right-arrow.svg" alt="" />',
+                  ]),
+                })
+                .on("changed.owl.carousel", syncPosition);
+
+              sync2
+                .on("initialized.owl.carousel", function () {
+                  sync2.find(".owl-item").eq(0).addClass("current");
+                })
+                .owlCarousel({
+                  items: slidesPerPage,
+                  dots: false,
+                  nav: true,
+                  smartSpeed: 200,
+                  slideSpeed: 500,
+                  slideBy: slidesPerPage,
+                  responsiveRefreshRate: 100,
+                  navText: fixNavText([
+                    '<img src="/assets/images/app-icons/fluent-emoji-high-contrast_left-arrow.svg" alt="" />',
+                    '<img src="/assets/images/app-icons/fluent-emoji-high-contrast_right-arrow.svg" alt="" />',
+                  ]),
+                })
+                .on("changed.owl.carousel", syncPosition2);
+
+              function syncPosition(el) {
+                var count = el.item.count - 1;
+                var current = Math.round(el.item.index - el.item.count / 2 - 0.5);
+                if (current < 0) current = count;
+                if (current > count) current = 0;
 
                 sync2
-                  .on("initialized.owl.carousel", function () {
-                    sync2.find(".owl-item").eq(0).addClass("current");
-                  })
-                  .owlCarousel({
-                    items: slidesPerPage,
-                    dots: false,
-                    nav: true,
-                    smartSpeed: 200,
-                    slideSpeed: 500,
-                    slideBy: slidesPerPage,
-                    responsiveRefreshRate: 100,
-                    navText: fixNavText([
-                      '<img src="/assets/images/app-icons/fluent-emoji-high-contrast_left-arrow.svg" alt="" />',
-                      '<img src="/assets/images/app-icons/fluent-emoji-high-contrast_right-arrow.svg" alt="" />',
-                    ]),
-                  })
-                  .on("changed.owl.carousel", syncPosition2);
+                  .find(".owl-item")
+                  .removeClass("current")
+                  .eq(current)
+                  .addClass("current");
 
-                function syncPosition(el) {
-                  var count = el.item.count - 1;
-                  var current = Math.round(el.item.index - el.item.count / 2 - 0.5);
-                  if (current < 0) current = count;
-                  if (current > count) current = 0;
+                var onscreen = sync2.find(".owl-item.active").length - 1;
+                var start = sync2.find(".owl-item.active").first().index();
+                var end = sync2.find(".owl-item.active").last().index();
 
-                  sync2
-                    .find(".owl-item")
-                    .removeClass("current")
-                    .eq(current)
-                    .addClass("current");
+                if (current > end) sync2.data("owl.carousel").to(current, 100, true);
+                if (current < start)
+                  sync2.data("owl.carousel").to(current - onscreen, 100, true);
+              }
 
-                  var onscreen = sync2.find(".owl-item.active").length - 1;
-                  var start = sync2.find(".owl-item.active").first().index();
-                  var end = sync2.find(".owl-item.active").last().index();
-
-                  if (current > end) sync2.data("owl.carousel").to(current, 100, true);
-                  if (current < start)
-                    sync2.data("owl.carousel").to(current - onscreen, 100, true);
+              function syncPosition2(el) {
+                if (syncedSecondary) {
+                  var number = el.item.index;
+                  sync1.data("owl.carousel").to(number, 100, true);
                 }
+              }
 
-                function syncPosition2(el) {
-                  if (syncedSecondary) {
-                    var number = el.item.index;
-                    sync1.data("owl.carousel").to(number, 100, true);
-                  }
-                }
+              sync2.on("click", ".owl-item", function (e) {
+                e.preventDefault();
+                var number = $(this).index();
+                sync1.data("owl.carousel").to(number, 300, true);
+              });
 
-                sync2.on("click", ".owl-item", function (e) {
-                  e.preventDefault();
-                  var number = $(this).index();
-                  sync1.data("owl.carousel").to(number, 300, true);
-                });
-
+              if (sync3.length && !sync3.hasClass("owl-loaded")) {
                 sync3.owlCarousel({
                   items: 2,
                   slideSpeed: 2000,
@@ -175,25 +216,16 @@ export default function Home() {
                   loop: true,
                   responsiveRefreshRate: 200,
                 });
-              });
+              }
             }
 
-            function loadOwl() {
-              var s = document.createElement("script");
-              s.src = "/assets/vendor/owlcarousel/owl.carousel.min.js";
-              s.onload = initOwl;
-              document.body.appendChild(s);
-            }
-
-            if (window.jQuery) {
-              loadOwl();
-              return;
-            }
-
-            var jq = document.createElement("script");
-            jq.src = "/assets/vendor/jquery/jquery.min.js";
-            jq.onload = loadOwl;
-            document.body.appendChild(jq);
+            whenCssReady(function () {
+              if (document.readyState === "loading") {
+                document.addEventListener("DOMContentLoaded", initOwl, { once: true });
+              } else {
+                initOwl();
+              }
+            });
           })();
         `}
       </Script>

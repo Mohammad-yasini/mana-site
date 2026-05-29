@@ -4,13 +4,24 @@ import {
   SITE_ASYNC_STYLES,
 } from "@/lib/asyncStyles";
 
-type Props = { extraStyles?: readonly string[]; lcpImage?: string | null };
+type Props = {
+  extraStyles?: readonly string[];
+  syncStyles?: readonly string[];
+  lcpImage?: string | null;
+};
 
-export function SiteStylesHead({ extraStyles = [], lcpImage = null }: Props) {
+export function SiteStylesHead({
+  extraStyles = [],
+  syncStyles = [],
+  lcpImage = null,
+}: Props) {
   const asyncHrefs = [...SITE_ASYNC_STYLES, ...extraStyles];
 
   return (
     <>
+      {syncStyles.map((href) => (
+        <link key={`sync-${href}`} rel="stylesheet" href={href} />
+      ))}
       {lcpImage ? (
         <link rel="preload" as="image" href={lcpImage} fetchPriority="high" />
       ) : null}
