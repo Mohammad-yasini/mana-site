@@ -7,13 +7,13 @@ import {
   type BlogIndexCategory,
   type BlogIndexPost,
 } from "@/components/blog/BlogIndexListing";
+import { metadataForPage } from "@/lib/pageSeo";
 
 export const dynamic = "force-dynamic";
 
-export const metadata: Metadata = {
-  title: "وبلاگ - مانا الکترونیک",
-  description: "راهنماها، آموزش‌ها و نکات اجرایی حوزه امنیت و نظارت تصویری.",
-};
+export async function generateMetadata(): Promise<Metadata> {
+  return metadataForPage("blog");
+}
 
 function rowToPost(p: RowDataPacket): BlogIndexPost {
   return {

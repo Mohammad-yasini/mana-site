@@ -1,11 +1,12 @@
 import type { Metadata } from "next";
 import { RepresentationForm } from "@/components/RepresentationForm";
+import { metadataForPage } from "@/lib/pageSeo";
 
-export const metadata: Metadata = {
-  title: "اعطای نمایندگی - مانا الکترونیک",
-  description:
-    "فرم درخواست نمایندگی و همکاری با مانا الکترونیک؛ تجهیزات امنیتی و نظارت تصویری.",
-};
+export const dynamic = "force-dynamic";
+
+export async function generateMetadata(): Promise<Metadata> {
+  return metadataForPage("representation");
+}
 
 export default function RepresentationPage() {
   return (

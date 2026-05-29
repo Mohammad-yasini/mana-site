@@ -2,13 +2,13 @@ import Link from "next/link";
 import type { Metadata } from "next";
 import { getPool } from "@/lib/db";
 import type { RowDataPacket } from "mysql2";
+import { metadataForPage } from "@/lib/pageSeo";
 
 export const dynamic = "force-dynamic";
 
-export const metadata: Metadata = {
-  title: "برندها - مانا الکترونیک",
-  description: "برندهای معتبر تجهیزات امنیتی و نظارت تصویری در مانا الکترونیک.",
-};
+export async function generateMetadata(): Promise<Metadata> {
+  return metadataForPage("brands");
+}
 
 const DEFAULT_LOGO = "/assets/images/img/Layer_1.png";
 

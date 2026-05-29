@@ -79,6 +79,12 @@ const I = {
       <path d="M4 6h16M4 12h16M4 18h16" />
     </svg>
   ),
+  seo: (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <circle cx="11" cy="11" r="7" />
+      <path d="M21 21l-4.3-4.3M8.5 11h5M11 8.5v5" />
+    </svg>
+  ),
 };
 
 const GROUPS: NavGroup[] = [
@@ -109,6 +115,7 @@ const GROUPS: NavGroup[] = [
     items: [
       { href: "/dashboard/header", label: "هدر سایت", icon: I.layoutTop },
       { href: "/dashboard/footer", label: "فوتر سایت", icon: I.layoutBottom },
+      { href: "/dashboard/seo", label: "سئوی برگه‌ها", icon: I.seo },
     ],
   },
 ];
@@ -122,6 +129,7 @@ const TITLES: { match: (p: string) => boolean; title: string }[] = [
   { match: (p) => p.startsWith("/dashboard/representation"), title: "درخواست‌های نمایندگی" },
   { match: (p) => p.startsWith("/dashboard/header"), title: "هدر سایت" },
   { match: (p) => p.startsWith("/dashboard/footer"), title: "فوتر سایت" },
+  { match: (p) => p.startsWith("/dashboard/seo"), title: "سئوی برگه‌ها" },
 ];
 
 function isActive(pathname: string, item: NavItem): boolean {
