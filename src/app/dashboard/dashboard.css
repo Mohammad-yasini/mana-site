@@ -20,7 +20,7 @@
 .admin-shell {
   display: flex;
   min-height: 100vh;
-  flex-direction: row-reverse;
+  flex-direction: row;
 }
 
 .admin-main {
