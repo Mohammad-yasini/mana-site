@@ -6,7 +6,71 @@ export default function Home() {
 
   return (
     <>
-      <main dangerouslySetInnerHTML={{ __html: html }} />
+      <style>{`
+        .home-motion .brand-box,
+        .home-motion .product-box,
+        .home-motion .product-section,
+        .home-motion .offer-card,
+        .home-motion .testimonial-card {
+          transition: transform .25s ease, box-shadow .25s ease;
+        }
+        .home-motion .brand-box:hover,
+        .home-motion .product-box:hover,
+        .home-motion .product-section:hover {
+          transform: translateY(-6px);
+          box-shadow: 0 14px 30px rgba(0, 0, 0, 0.10);
+        }
+        .home-motion.motion-ready > section,
+        .home-motion.motion-ready section.brand-section,
+        .home-motion.motion-ready section.about-section,
+        .home-motion.motion-ready section.mana-about,
+        .home-motion.motion-ready section.brands-section,
+        .home-motion.motion-ready section.testimonial,
+        .home-motion.motion-ready section.brandsCircle-section,
+        .home-motion.motion-ready section.offers-section,
+        .home-motion.motion-ready section.security-section {
+          opacity: 0;
+          transform: translateY(26px);
+          transition: opacity .7s ease, transform .7s ease;
+          will-change: opacity, transform;
+        }
+        .home-motion.motion-ready section.is-visible {
+          opacity: 1;
+          transform: none;
+        }
+        @media (prefers-reduced-motion: reduce) {
+          .home-motion.motion-ready section {
+            opacity: 1 !important;
+            transform: none !important;
+            transition: none !important;
+          }
+        }
+      `}</style>
+      <main className="home-motion" dangerouslySetInnerHTML={{ __html: html }} />
+      <Script id="home-motion-reveal" strategy="afterInteractive">
+        {`
+          (function () {
+            var root = document.querySelector('.home-motion');
+            if (!root) return;
+            if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+            root.classList.add('motion-ready');
+            var secs = root.querySelectorAll('section');
+            if (!('IntersectionObserver' in window)) {
+              secs.forEach(function (s) { s.classList.add('is-visible'); });
+              return;
+            }
+            var io = new IntersectionObserver(function (entries) {
+              entries.forEach(function (e) {
+                if (e.isIntersecting) {
+                  e.target.classList.add('is-visible');
+                  io.unobserve(e.target);
+                }
+              });
+            }, { threshold: 0.12, rootMargin: '0px 0px -8% 0px' });
+            secs.forEach(function (s) { io.observe(s); });
+          })();
+        `}
+      </Script>
       <Script
         src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"
         strategy="afterInteractive"
