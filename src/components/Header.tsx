@@ -16,6 +16,8 @@ export async function Header() {
       contactSubtitle={cfg.contactSubtitle}
       phoneHtml={safePhone}
       navLinks={cfg.navLinks}
+      representationButtonHref={cfg.representationButtonHref}
+      panelButtonHref={cfg.panelButtonHref}
     />
   );
 }

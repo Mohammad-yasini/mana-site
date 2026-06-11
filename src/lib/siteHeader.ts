@@ -7,6 +7,8 @@ export type SiteHeaderConfig = {
   contactSubtitle: string;
   phoneDisplayHtml: string;
   navLinks: HeaderNavLink[];
+  representationButtonHref: string;
+  panelButtonHref: string;
 };
 
 export const DEFAULT_SITE_HEADER: SiteHeaderConfig = {
@@ -18,7 +20,18 @@ export const DEFAULT_SITE_HEADER: SiteHeaderConfig = {
     { href: "/about", label: "درباره ما" },
     { href: "/contact", label: "ارتباط با ما" },
   ],
+  representationButtonHref: "/representation",
+  panelButtonHref: "/dashboard",
 };
+
+const HREF_PATTERN = /^(\/|https?:\/\/|#)/;
+
+function normalizeButtonHref(value: unknown, fallback: string): string {
+  if (typeof value !== "string") return fallback;
+  const trimmed = value.trim();
+  if (!trimmed || !HREF_PATTERN.test(trimmed)) return fallback;
+  return trimmed.slice(0, 500);
+}
 
 function isNavLink(x: unknown): x is HeaderNavLink {
   if (!x || typeof x !== "object") return false;
@@ -45,6 +58,11 @@ export function mergeHeaderDefaults(raw: unknown): SiteHeaderConfig {
         ? o.phoneDisplayHtml.slice(0, 500)
         : d.phoneDisplayHtml,
     navLinks: navLinks !== null ? (navLinks.length ? navLinks : [...d.navLinks]) : [...d.navLinks],
+    representationButtonHref: normalizeButtonHref(
+      o.representationButtonHref,
+      d.representationButtonHref,
+    ),
+    panelButtonHref: normalizeButtonHref(o.panelButtonHref, d.panelButtonHref),
   };
 }
 
@@ -73,6 +91,12 @@ export function assertValidHeaderConfig(input: unknown): SiteHeaderConfig {
   for (const link of merged.navLinks) {
     if (!link.label.trim()) throw new Error("متن هر منو نباید خالی باشد");
     if (!link.href.trim()) throw new Error("لینک هر منو نباید خالی باشد");
+  }
+  if (!merged.representationButtonHref.trim()) {
+    throw new Error("لینک دکمه اعطای نمایندگی نباید خالی باشد");
+  }
+  if (!merged.panelButtonHref.trim()) {
+    throw new Error("لینک دکمه پنل همکاران نباید خالی باشد");
   }
   return merged;
 }

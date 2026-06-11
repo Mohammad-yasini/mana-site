@@ -1,3 +1,4 @@
+import { revalidatePath } from "next/cache";
 import { NextResponse } from "next/server";
 import { getPool } from "@/lib/db";
 import { getAdminFromCookies } from "@/lib/admin-session";
@@ -64,6 +65,7 @@ export async function PATCH(request: Request) {
     if (upd.affectedRows === 0) {
       await pool.execute("INSERT INTO site_header_config (id, config_json) VALUES (1, ?)", [json]);
     }
+    revalidatePath("/", "layout");
     return NextResponse.json({ ok: true });
   } catch (e) {
     console.error(e);

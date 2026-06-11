@@ -90,7 +90,41 @@ export function HeaderAdminClient({ initialConfig }: Props) {
       </div>
 
       <div className="card mb-3">
-        <div className="card-header">۳) منوی اصلی (متن + لینک)</div>
+        <div className="card-header">۳) دکمه‌های هدر (لینک)</div>
+        <div className="card-body">
+          <div className="row g-3">
+            <div className="col-md-6">
+              <label className="form-label small">اعطای نمایندگی</label>
+              <input
+                className="form-control form-control-sm"
+                dir="ltr"
+                value={cfg.representationButtonHref}
+                onChange={(e) =>
+                  setCfg((c) => ({ ...c, representationButtonHref: e.target.value }))
+                }
+                placeholder="/representation"
+              />
+            </div>
+            <div className="col-md-6">
+              <label className="form-label small">پنل همکاران</label>
+              <input
+                className="form-control form-control-sm"
+                dir="ltr"
+                value={cfg.panelButtonHref}
+                onChange={(e) => setCfg((c) => ({ ...c, panelButtonHref: e.target.value }))}
+                placeholder="/dashboard"
+              />
+            </div>
+          </div>
+          <p className="text-muted small mb-0 mt-2">
+            لینک داخلی با <code>/</code> شروع شود؛ مثلاً <code>/representation</code> یا{" "}
+            <code>/login</code>
+          </p>
+        </div>
+      </div>
+
+      <div className="card mb-3">
+        <div className="card-header">۴) منوی اصلی (متن + لینک)</div>
         <div className="card-body">
           {cfg.navLinks.map((row, idx) => (
             <div key={idx} className="row g-2 mb-2 align-items-end">

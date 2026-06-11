@@ -8,9 +8,17 @@ type Props = {
   contactSubtitle: string;
   phoneHtml: string;
   navLinks: HeaderNavLink[];
+  representationButtonHref: string;
+  panelButtonHref: string;
 };
 
-export function HeaderClient({ contactSubtitle, phoneHtml, navLinks }: Props) {
+export function HeaderClient({
+  contactSubtitle,
+  phoneHtml,
+  navLinks,
+  representationButtonHref,
+  panelButtonHref,
+}: Props) {
   const pathname = usePathname();
 
   return (
@@ -63,7 +71,7 @@ export function HeaderClient({ contactSubtitle, phoneHtml, navLinks }: Props) {
                 );
               })}
 
-              <Link href="/representation" className="represent-btn">
+              <Link href={representationButtonHref} className="represent-btn">
                 <span>اعطای نمایندگی</span>
                 <span className="icon">
                   <img
@@ -74,7 +82,7 @@ export function HeaderClient({ contactSubtitle, phoneHtml, navLinks }: Props) {
                 </span>
               </Link>
 
-              <Link href="/dashboard" className="panel-btn">
+              <Link href={panelButtonHref} className="panel-btn">
                 <span className="icon">
                   <img
                     src="/assets/images/app-icons/user-circle-fill.svg"
