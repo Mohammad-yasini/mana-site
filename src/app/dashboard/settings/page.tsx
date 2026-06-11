@@ -1,9 +1,7 @@
 import { SiteSettingsAdminClient } from "@/components/admin/SiteSettingsAdminClient";
-import { getSiteSettings } from "@/lib/siteSettings";
+import { DEFAULT_FAVICON_URL, getSiteSettings } from "@/lib/siteSettings";
 
 export const dynamic = "force-dynamic";
-
-const DEFAULT_FAVICON_URL = "/icon.png";
 
 export default async function DashboardSiteSettingsPage() {
   const config = await getSiteSettings();

@@ -1,3 +1,4 @@
+import path from "node:path";
 import { getPool } from "@/lib/db";
 import type { RowDataPacket } from "mysql2";
 
@@ -5,11 +6,21 @@ export type SiteSettingsConfig = {
   faviconUrl: string | null;
 };
 
+export const DEFAULT_FAVICON_URL = "/assets/site/favicon.png";
+
 export const DEFAULT_SITE_SETTINGS: SiteSettingsConfig = {
   faviconUrl: null,
 };
 
-const FAVICON_PATH = /^\/(?:uploads\/site|assets)\/[^\s?#]+$/i;
+const FAVICON_PATH = /^\/(?:uploads\/site|assets\/site)\/[^\s?#]+$/i;
+
+export function resolveFaviconUrl(settings: SiteSettingsConfig): string {
+  return settings.faviconUrl ?? DEFAULT_FAVICON_URL;
+}
+
+export function getPublicFaviconPath(url: string): string {
+  return path.join(process.cwd(), "public", url.replace(/^\//, ""));
+}
 
 function normalizeFaviconUrl(value: unknown): string | null {
   if (value === null || value === undefined || value === "") return null;
