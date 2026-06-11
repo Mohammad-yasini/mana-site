@@ -22,6 +22,8 @@ function normalizeHtml(html: string) {
       .replaceAll('href="./contact.html"', 'href="/contact"')
       .replaceAll('href="./blog.html"', 'href="/blog"')
       .replaceAll('href="./login-step1.html"', 'href="/dashboard"')
+      .replaceAll('href="./representation.html"', 'href="/representation"')
+      .replaceAll('href="./brands.html"', 'href="/brands"')
   );
 }
 

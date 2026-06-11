@@ -1,4 +1,12 @@
 import { getPool } from "@/lib/db";
+import {
+  DEFAULT_FOOTER_PHONES,
+  DEFAULT_FOOTER_QUICK_LINKS,
+  DEFAULT_FOOTER_USER_LINKS,
+  STATIC_BRAND_LINKS,
+  isPlaceholderHref,
+  linksArePlaceholders,
+} from "@/lib/internalLinks";
 import type { RowDataPacket } from "mysql2";
 
 export type FooterColumnLink = { label: string; href: string };
@@ -42,52 +50,18 @@ export type SiteFooterConfig = {
   copyrightText: string;
 };
 
-const dehoo = "دوربین دههو";
-
 export const DEFAULT_SITE_FOOTER: SiteFooterConfig = {
   brandsColumnTitle: "برند ها",
-  brandsLinks: Array.from({ length: 8 }, () => ({ label: dehoo, href: "#" })),
+  brandsLinks: [...STATIC_BRAND_LINKS],
   userColumnTitle: "دسترسی کاربری",
-  userLinks: [
-    { label: "ورود به حساب کاربری", href: "#" },
-    { label: "ثبت نام پنل همکاری", href: "#" },
-    { label: "امتیازات", href: "#" },
-    { label: "فروشگاه", href: "#" },
-  ],
+  userLinks: [...DEFAULT_FOOTER_USER_LINKS],
   quickColumnTitle: "دسترسی سریع",
-  quickLinks: [
-    { label: "محصولات", href: "#" },
-    { label: "سوالات متداول", href: "#" },
-    { label: "اخبار مانا", href: "#" },
-    { label: "درباره ما", href: "/about" },
-    { label: "ارتباط با ما", href: "/contact" },
-  ],
+  quickLinks: [...DEFAULT_FOOTER_QUICK_LINKS],
   logoTagline: "تجهیزات امنیتی و نظارت تصویری",
   logoPhoneDisplay: '<small>021</small> <span class="color1">91300930</span>',
   rightDescription:
     "این دوربین‌ها قابلیت ثبت تصاویر رنگی در شب و تاریکی مطلق، تشخیص چهره و شناسایی افراد، زوم اپتیکال و دیجیتال، پشتیبانی از شبکه‌های بی‌سیم و سیمی، انتقال تصویر به صورت زنده و ذخیره‌سازی در ابر و... را دارند.",
-  phones: [
-    {
-      icon: "/assets/images/app-icons/meteor-icons_message.svg",
-      text: "SMS: 30007957951415",
-      href: "#",
-    },
-    {
-      icon: "/assets/images/app-icons/cil_phone.svg",
-      text: "Phone: 0444622222",
-      href: "#",
-    },
-    {
-      icon: "/assets/images/app-icons/ic_baseline-whatsapp.svg",
-      text: "whatsapp: +98-912000000",
-      href: "#",
-    },
-    {
-      icon: "/assets/images/app-icons/qlementine-icons_instagram-16.svg",
-      text: "instagram: @manaelectronic",
-      href: "#",
-    },
-  ],
+  phones: DEFAULT_FOOTER_PHONES.map((p) => ({ ...p })),
   badges: [
     { src: "/assets/images/img/image5.png", alt: "SSL" },
     { src: "/assets/images/img/image6.png", alt: "Enamad" },
@@ -161,27 +135,78 @@ export function mergeFooterDefaults(raw: unknown): SiteFooterConfig {
   };
 }
 
+async function loadBrandLinksFromDb(): Promise<FooterColumnLink[]> {
+  try {
+    const pool = getPool();
+    const [rows] = await pool.execute<RowDataPacket[]>(
+      "SELECT name, slug FROM brands ORDER BY name ASC LIMIT 8",
+    );
+    if (!rows.length) return [...STATIC_BRAND_LINKS];
+    return rows.map((row) => ({
+      label: String(row.name),
+      href: `/brand/${String(row.slug)}`,
+    }));
+  } catch {
+    return [...STATIC_BRAND_LINKS];
+  }
+}
+
+function patchLinkList(
+  links: FooterColumnLink[],
+  defaults: FooterColumnLink[],
+): FooterColumnLink[] {
+  if (linksArePlaceholders(links)) return [...defaults];
+  return links.map((link, i) =>
+    isPlaceholderHref(link.href) && defaults[i] ? { ...link, href: defaults[i].href } : link,
+  );
+}
+
+function patchPhones(phones: FooterPhoneItem[]): FooterPhoneItem[] {
+  const defaults = DEFAULT_FOOTER_PHONES.map((p) => ({ ...p }));
+  if (linksArePlaceholders(phones)) return defaults;
+  return phones.map((phone, i) =>
+    isPlaceholderHref(phone.href) && defaults[i] ? { ...phone, href: defaults[i].href } : phone,
+  );
+}
+
+async function resolveFooterLinks(config: SiteFooterConfig): Promise<SiteFooterConfig> {
+  const dbBrands = await loadBrandLinksFromDb();
+  const brandsLinks = linksArePlaceholders(config.brandsLinks)
+    ? dbBrands
+    : patchLinkList(config.brandsLinks, dbBrands);
+
+  return {
+    ...config,
+    brandsLinks,
+    userLinks: patchLinkList(config.userLinks, DEFAULT_FOOTER_USER_LINKS),
+    quickLinks: patchLinkList(config.quickLinks, DEFAULT_FOOTER_QUICK_LINKS),
+    phones: patchPhones(config.phones),
+  };
+}
+
 export async function getSiteFooterConfig(): Promise<SiteFooterConfig> {
+  const fallback = {
+    ...DEFAULT_SITE_FOOTER,
+    brandsLinks: [...DEFAULT_SITE_FOOTER.brandsLinks],
+    userLinks: [...DEFAULT_SITE_FOOTER.userLinks],
+    quickLinks: [...DEFAULT_SITE_FOOTER.quickLinks],
+    phones: [...DEFAULT_SITE_FOOTER.phones],
+    badges: [...DEFAULT_SITE_FOOTER.badges],
+  };
+
   try {
     const pool = getPool();
     const [rows] = await pool.execute<RowDataPacket[]>(
       "SELECT config_json FROM site_footer_config WHERE id = 1 LIMIT 1",
     );
     const row = rows[0];
-    if (!row?.config_json) return { ...DEFAULT_SITE_FOOTER, brandsLinks: [...DEFAULT_SITE_FOOTER.brandsLinks] };
+    if (!row?.config_json) return resolveFooterLinks(fallback);
     const raw = row.config_json;
     const str = typeof raw === "string" ? raw : String(raw);
     const parsed = JSON.parse(str) as unknown;
-    return mergeFooterDefaults(parsed);
+    return resolveFooterLinks(mergeFooterDefaults(parsed));
   } catch {
-    return {
-      ...DEFAULT_SITE_FOOTER,
-      brandsLinks: [...DEFAULT_SITE_FOOTER.brandsLinks],
-      userLinks: [...DEFAULT_SITE_FOOTER.userLinks],
-      quickLinks: [...DEFAULT_SITE_FOOTER.quickLinks],
-      phones: [...DEFAULT_SITE_FOOTER.phones],
-      badges: [...DEFAULT_SITE_FOOTER.badges],
-    };
+    return resolveFooterLinks(fallback);
   }
 }
 

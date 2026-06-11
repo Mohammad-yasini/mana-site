@@ -1,4 +1,5 @@
 import DOMPurify from "isomorphic-dompurify";
+import { CLUB_URL } from "@/lib/internalLinks";
 import { getSiteFooterConfig, badgeDimensions } from "@/lib/siteFooter";
 
 const phoneHtmlSanitize = {
@@ -31,7 +32,7 @@ export async function Footer() {
             </div>
 
             <div className="offers-button">
-              <a href="#" className="btn-link">
+              <a href={CLUB_URL} className="btn-link">
                 <img
                   src="/assets/images/app-icons/ph_user-circle-plus-fill.svg"
                   alt="Mana Service"

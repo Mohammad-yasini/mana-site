@@ -1,4 +1,5 @@
 import { getPool } from "@/lib/db";
+import { CLUB_URL, DEFAULT_HEADER_NAV } from "@/lib/internalLinks";
 import type { RowDataPacket } from "mysql2";
 
 export type HeaderNavLink = { label: string; href: string };
@@ -14,14 +15,9 @@ export type SiteHeaderConfig = {
 export const DEFAULT_SITE_HEADER: SiteHeaderConfig = {
   contactSubtitle: "تجهیزات امنیتی و نظارت تصویری",
   phoneDisplayHtml: '<small>021-</small> <span class="color1">91300930</span>',
-  navLinks: [
-    { href: "/services", label: "خدمات" },
-    { href: "/blog", label: "وبلاگ" },
-    { href: "/about", label: "درباره ما" },
-    { href: "/contact", label: "ارتباط با ما" },
-  ],
+  navLinks: [...DEFAULT_HEADER_NAV],
   representationButtonHref: "/representation",
-  panelButtonHref: "/dashboard",
+  panelButtonHref: CLUB_URL,
 };
 
 const HREF_PATTERN = /^(\/|https?:\/\/|#)/;
@@ -66,6 +62,24 @@ export function mergeHeaderDefaults(raw: unknown): SiteHeaderConfig {
   };
 }
 
+function ensureBrandsNavLink(links: HeaderNavLink[]): HeaderNavLink[] {
+  if (links.some((l) => l.href === "/brands")) return links;
+  return [{ href: "/brands", label: "برندها" }, ...links];
+}
+
+function resolveHeaderConfig(config: SiteHeaderConfig): SiteHeaderConfig {
+  const panelButtonHref =
+    config.panelButtonHref === "/dashboard" || config.panelButtonHref === "/login"
+      ? CLUB_URL
+      : config.panelButtonHref;
+
+  return {
+    ...config,
+    navLinks: ensureBrandsNavLink(config.navLinks),
+    panelButtonHref,
+  };
+}
+
 export async function getSiteHeaderConfig(): Promise<SiteHeaderConfig> {
   try {
     const pool = getPool();
@@ -74,14 +88,20 @@ export async function getSiteHeaderConfig(): Promise<SiteHeaderConfig> {
     );
     const row = rows[0];
     if (!row?.config_json) {
-      return { ...DEFAULT_SITE_HEADER, navLinks: [...DEFAULT_SITE_HEADER.navLinks] };
+      return resolveHeaderConfig({
+        ...DEFAULT_SITE_HEADER,
+        navLinks: [...DEFAULT_SITE_HEADER.navLinks],
+      });
     }
     const raw = row.config_json;
     const str = typeof raw === "string" ? raw : String(raw);
     const parsed = JSON.parse(str) as unknown;
-    return mergeHeaderDefaults(parsed);
+    return resolveHeaderConfig(mergeHeaderDefaults(parsed));
   } catch {
-    return { ...DEFAULT_SITE_HEADER, navLinks: [...DEFAULT_SITE_HEADER.navLinks] };
+    return resolveHeaderConfig({
+      ...DEFAULT_SITE_HEADER,
+      navLinks: [...DEFAULT_SITE_HEADER.navLinks],
+    });
   }
 }
 
