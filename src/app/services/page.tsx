@@ -1,13 +1,15 @@
 import type { Metadata } from "next";
-import { loadTemplateMainHtml } from "@/lib/templateHtml";
+import { resolvePageMainHtml } from "@/lib/pageContent";
 import { metadataForPage } from "@/lib/pageSeo";
+
+export const dynamic = "force-dynamic";
 
 export async function generateMetadata(): Promise<Metadata> {
   return metadataForPage("services");
 }
 
-export default function ServicesPage() {
-  const html = loadTemplateMainHtml("services.html");
+export default async function ServicesPage() {
+  const html = await resolvePageMainHtml("services");
   return <main dangerouslySetInnerHTML={{ __html: html }} />;
 }
 

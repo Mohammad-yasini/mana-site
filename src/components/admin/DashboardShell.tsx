@@ -107,6 +107,7 @@ const GROUPS: NavGroup[] = [
   {
     title: "محتوا",
     items: [
+      { href: "/dashboard/pages", label: "برگه‌ها", icon: I.folder },
       { href: "/dashboard/posts", label: "نوشته‌ها", icon: I.doc },
       { href: "/dashboard/categories", label: "دسته‌های وبلاگ", icon: I.tag },
     ],
@@ -136,6 +137,7 @@ const GROUPS: NavGroup[] = [
 
 const TITLES: { match: (p: string) => boolean; title: string }[] = [
   { match: (p) => p === "/dashboard", title: "داشبورد" },
+  { match: (p) => p.startsWith("/dashboard/pages"), title: "برگه‌ها" },
   { match: (p) => p.startsWith("/dashboard/posts"), title: "نوشته‌ها" },
   { match: (p) => p.startsWith("/dashboard/categories"), title: "دسته‌های وبلاگ" },
   { match: (p) => p.startsWith("/dashboard/brands"), title: "برندها" },

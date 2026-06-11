@@ -1,14 +1,16 @@
 import Script from "next/script";
 import type { Metadata } from "next";
-import { loadTemplateMainHtml } from "@/lib/templateHtml";
+import { resolvePageMainHtml } from "@/lib/pageContent";
 import { metadataForPage } from "@/lib/pageSeo";
+
+export const dynamic = "force-dynamic";
 
 export async function generateMetadata(): Promise<Metadata> {
   return metadataForPage("home");
 }
 
-export default function Home() {
-  const html = loadTemplateMainHtml("home.html");
+export default async function Home() {
+  const html = await resolvePageMainHtml("home");
 
   return (
     <>
