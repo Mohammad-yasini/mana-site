@@ -3,17 +3,35 @@ import { headers } from "next/headers";
 import Script from "next/script";
 import { SiteStylesHead } from "@/components/SiteStylesHead";
 import { HOME_SYNC_STYLES, HOME_LCP_IMAGE } from "@/lib/asyncStyles";
+import { faviconMimeType, getSiteSettings } from "@/lib/siteSettings";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { SiteChrome } from "@/components/SiteChrome";
 
-export const metadata: Metadata = {
-  title: "Mana Site",
-  description: "Mana Electronic — Next.js app",
-  verification: {
-    google: "kTPS1JThw3vIPIt35By0yclVV64ueuyZVgAskflVRtg",
-  },
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const settings = await getSiteSettings();
+  const base: Metadata = {
+    title: "Mana Site",
+    description: "Mana Electronic — Next.js app",
+    verification: {
+      google: "kTPS1JThw3vIPIt35By0yclVV64ueuyZVgAskflVRtg",
+    },
+  };
+
+  if (!settings.faviconUrl) {
+    return base;
+  }
+
+  const type = faviconMimeType(settings.faviconUrl);
+  return {
+    ...base,
+    icons: {
+      icon: type ? [{ url: settings.faviconUrl, type }] : settings.faviconUrl,
+      shortcut: settings.faviconUrl,
+      apple: settings.faviconUrl,
+    },
+  };
+}
 
 export default async function RootLayout({
   children,
