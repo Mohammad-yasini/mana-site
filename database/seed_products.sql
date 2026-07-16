@@ -51,25 +51,25 @@ SELECT b.id, 'ترانس برق صنعتی یوتک', 'UTEC Industrial Transform
        'تماس بگیرید', 1
 FROM `brands` b WHERE b.slug = 'utec';
 
--- های‌لینک (کابل و اتصالات)
+-- Hoom Link (کابل و اتصالات)
 INSERT IGNORE INTO `products` (`brand_id`, `name`, `name_en`, `slug`, `cover_image`, `short_description`, `body`, `price`, `published`)
-SELECT b.id, 'کابل کواکسیال های‌لینک RG59', 'Hi-Link RG59', 'hi-link-rg59', '/assets/images/img/catalog1.png',
+SELECT b.id, 'کابل کواکسیال Hoom Link RG59', 'Hoom Link RG59', 'hi-link-rg59', '/assets/images/img/catalog1.png',
        'کابل کواکسیال باکیفیت برای انتقال تصویر آنالوگ.',
-       '<p>کابل کواکسیال های‌لینک RG59 با هادی مرغوب برای انتقال پایدار تصویر دوربین‌های آنالوگ.</p>',
+       '<p>کابل کواکسیال Hoom Link RG59 با هادی مرغوب برای انتقال پایدار تصویر دوربین‌های آنالوگ.</p>',
        'تماس بگیرید', 1
 FROM `brands` b WHERE b.slug = 'hi-link';
 
 INSERT IGNORE INTO `products` (`brand_id`, `name`, `name_en`, `slug`, `cover_image`, `short_description`, `body`, `price`, `published`)
-SELECT b.id, 'کابل شبکه CAT6 های‌لینک', 'Hi-Link CAT6', 'hi-link-cat6', '/assets/images/img/catalog2.png',
+SELECT b.id, 'کابل شبکه CAT6 Hoom Link', 'Hoom Link CAT6', 'hi-link-cat6', '/assets/images/img/catalog2.png',
        'کابل شبکه CAT6 برای دوربین‌های تحت شبکه.',
-       '<p>کابل شبکه CAT6 های‌لینک مناسب انتقال داده و تصویر دوربین‌های IP با سرعت بالا.</p>',
+       '<p>کابل شبکه CAT6 Hoom Link مناسب انتقال داده و تصویر دوربین‌های IP با سرعت بالا.</p>',
        'تماس بگیرید', 1
 FROM `brands` b WHERE b.slug = 'hi-link';
 
 INSERT IGNORE INTO `products` (`brand_id`, `name`, `name_en`, `slug`, `cover_image`, `short_description`, `body`, `price`, `published`)
-SELECT b.id, 'کانکتور BNC های‌لینک', 'Hi-Link BNC Connector', 'hi-link-bnc', '/assets/images/img/catalog3.png',
+SELECT b.id, 'کانکتور BNC Hoom Link', 'Hoom Link BNC Connector', 'hi-link-bnc', '/assets/images/img/catalog3.png',
        'کانکتور BNC مرغوب برای اتصال کابل کواکسیال.',
-       '<p>کانکتور BNC های‌لینک برای اتصال مطمئن کابل کواکسیال به دوربین و دستگاه ضبط.</p>',
+       '<p>کانکتور BNC Hoom Link برای اتصال مطمئن کابل کواکسیال به دوربین و دستگاه ضبط.</p>',
        'تماس بگیرید', 1
 FROM `brands` b WHERE b.slug = 'hi-link';
 

@@ -34,7 +34,7 @@ CREATE TABLE IF NOT EXISTS `products` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 INSERT IGNORE INTO `brands` (`name`, `name_en`, `slug`, `logo`, `description`) VALUES
-  ('دوربین های نظارتی دهو', 'DEHU Security Cameras', 'dehu', '/assets/images/img/Layer_1.png', 'دوربین‌های دیجیتال دهو یکی از محصولات پیشرفته و باکیفیت شرکت دهو است که با استفاده از تکنولوژی‌های نوین و هوش مصنوعی، امکان ارائه خدمات متنوع و مطمئن را به کاربران می‌دهد.'),
-  ('آداپتور و تجهیزات یوتک', 'UTEC', 'utec', '/assets/images/img/Isolation_Mode.png', 'آداپتور و تجهیزات جانبی یوتک با کیفیت بالا برای تأمین برق پایدار تجهیزات نظارتی.'),
-  ('کابل و اتصالات های‌لینک', 'Hi-Link', 'hi-link', '/assets/images/img/Layer_2.png', 'کابل و اتصالات های‌لینک برای انتقال پایدار تصویر و داده در سیستم‌های نظارتی.'),
+  ('محصولات دهو', 'Dehu', 'dehu', '/assets/images/img/Layer_1.png', 'محصولات دهو (Dehu) شامل دوربین‌های دیجیتال و نظارتی با کیفیت بالا است.'),
+  ('تجهیزات برق ذخیره و پاور', 'UTEC', 'utec', '/assets/images/img/Isolation_Mode.png', 'تجهیزات برق ذخیره و پاور یوتک برای تأمین برق پایدار تجهیزات نظارتی.'),
+  ('Hoom Link', 'Hoom Link', 'hi-link', '/assets/images/img/Layer_2.png', 'محصولات Hoom Link برای انتقال پایدار تصویر و داده در سیستم‌های نظارتی.'),
   ('خدمات گارانتی مانا سرویس', 'Mana Service', 'mana-service', '/assets/images/img/Layer_3.png', 'خدمات گارانتی و پشتیبانی فنی مانا سرویس برای محصولات امنیتی و نظارت تصویری.');

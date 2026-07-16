@@ -16,9 +16,9 @@ export const DEFAULT_HEADER_NAV: NavLink[] = [
 ];
 
 export const STATIC_BRAND_LINKS: NavLink[] = [
-  { label: "دوربین نظارتی دهو", href: "/brand/dehu" },
-  { label: "آداپتور و تجهیزات یوتک", href: "/brand/utec" },
-  { label: "کابل و اتصالات های‌لینک", href: "/brand/hi-link" },
+  { label: "محصولات دهو", href: "/brand/dehu" },
+  { label: "تجهیزات برق ذخیره و پاور", href: "/brand/utec" },
+  { label: "Hoom Link", href: "/brand/hi-link" },
   { label: "خدمات مانا سرویس", href: "/brand/mana-service" },
 ];
 
