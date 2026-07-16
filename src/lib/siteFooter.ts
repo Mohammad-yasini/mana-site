@@ -18,11 +18,28 @@ export type FooterPhoneItem = {
 };
 
 export type FooterBadgeItem = {
+  type?: "image" | "enamad";
   src: string;
   alt: string;
+  href?: string;
+  code?: string;
   width?: number;
   height?: number;
 };
+
+/** کد رسمی ای‌نماد — بدون تغییر (طبق خروجی enamad.ir) */
+export const ENAMAD_TRUST_SEAL_HTML =
+  "<a referrerpolicy='origin' target='_blank' href='https://trustseal.enamad.ir/?id=535452&Code=EY3lHW94b2tZcIPSvVyz0hM9aDy9ZCQi'><img referrerpolicy='origin' src='https://trustseal.enamad.ir/logo.aspx?id=535452&Code=EY3lHW94b2tZcIPSvVyz0hM9aDy9ZCQi' alt='' style='cursor:pointer' code='EY3lHW94b2tZcIPSvVyz0hM9aDy9ZCQi'></a>";
+
+export const ENAMAD_TRUST_SEAL: FooterBadgeItem = {
+  type: "enamad",
+  src: "https://trustseal.enamad.ir/logo.aspx?id=535452&Code=EY3lHW94b2tZcIPSvVyz0hM9aDy9ZCQi",
+  alt: "",
+};
+
+export function isEnamadBadge(badge: FooterBadgeItem): boolean {
+  return badge.type === "enamad" || badge.src.includes("image6.png") || badge.src.includes("trustseal.enamad.ir");
+}
 
 const BADGE_NATURAL: Record<string, { width: number; height: number }> = {
   "image5.png": { width: 70, height: 87 },
@@ -64,7 +81,7 @@ export const DEFAULT_SITE_FOOTER: SiteFooterConfig = {
   phones: DEFAULT_FOOTER_PHONES.map((p) => ({ ...p })),
   badges: [
     { src: "/assets/images/img/image5.png", alt: "SSL" },
-    { src: "/assets/images/img/image6.png", alt: "Enamad" },
+    { ...ENAMAD_TRUST_SEAL },
     { src: "/assets/images/img/image9.png", alt: "Samandehi" },
   ],
   copyrightText:
@@ -161,12 +178,34 @@ function patchLinkList(
   );
 }
 
+const LEGACY_FOOTER_PHONE_PATTERNS = [
+  /sms:/i,
+  /whatsapp/i,
+  /instagram/i,
+  /30007957951415/,
+  /912000000/,
+  /0444622222/,
+  /phone:\s*021-91300930/i,
+];
+
+function isLegacyFooterPhone(phone: FooterPhoneItem): boolean {
+  const haystack = `${phone.text} ${phone.href} ${phone.icon}`;
+  return LEGACY_FOOTER_PHONE_PATTERNS.some((pattern) => pattern.test(haystack));
+}
+
 function patchPhones(phones: FooterPhoneItem[]): FooterPhoneItem[] {
   const defaults = DEFAULT_FOOTER_PHONES.map((p) => ({ ...p }));
-  if (linksArePlaceholders(phones)) return defaults;
-  return phones.map((phone, i) =>
-    isPlaceholderHref(phone.href) && defaults[i] ? { ...phone, href: defaults[i].href } : phone,
-  );
+  if (linksArePlaceholders(phones) || phones.every(isLegacyFooterPhone)) return defaults;
+  return phones.map((phone, i) => {
+    if (defaults[i] && (isPlaceholderHref(phone.href) || isLegacyFooterPhone(phone))) {
+      return { ...defaults[i] };
+    }
+    return phone;
+  });
+}
+
+function patchBadges(badges: FooterBadgeItem[]): FooterBadgeItem[] {
+  return badges.map((badge) => (isEnamadBadge(badge) ? { ...ENAMAD_TRUST_SEAL } : badge));
 }
 
 async function resolveFooterLinks(config: SiteFooterConfig): Promise<SiteFooterConfig> {
@@ -181,6 +220,7 @@ async function resolveFooterLinks(config: SiteFooterConfig): Promise<SiteFooterC
     userLinks: patchLinkList(config.userLinks, DEFAULT_FOOTER_USER_LINKS),
     quickLinks: patchLinkList(config.quickLinks, DEFAULT_FOOTER_QUICK_LINKS),
     phones: patchPhones(config.phones),
+    badges: patchBadges(config.badges),
   };
 }
 

@@ -34,7 +34,7 @@ CREATE TABLE IF NOT EXISTS `products` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 INSERT IGNORE INTO `brands` (`name`, `name_en`, `slug`, `logo`, `description`) VALUES
-  ('دوربین های نظارتی دههو', 'DEHU Security Cameras', 'dehu', '/assets/images/img/Layer_1.png', 'دوربین‌های دیجیتال دههو یکی از محصولات پیشرفته و باکیفیت شرکت دههو است که با استفاده از تکنولوژی‌های نوین و هوش مصنوعی، امکان ارائه خدمات متنوع و مطمئن را به کاربران می‌دهد.'),
+  ('دوربین های نظارتی دهو', 'DEHU Security Cameras', 'dehu', '/assets/images/img/Layer_1.png', 'دوربین‌های دیجیتال دهو یکی از محصولات پیشرفته و باکیفیت شرکت دهو است که با استفاده از تکنولوژی‌های نوین و هوش مصنوعی، امکان ارائه خدمات متنوع و مطمئن را به کاربران می‌دهد.'),
   ('آداپتور و تجهیزات یوتک', 'UTEC', 'utec', '/assets/images/img/Isolation_Mode.png', 'آداپتور و تجهیزات جانبی یوتک با کیفیت بالا برای تأمین برق پایدار تجهیزات نظارتی.'),
   ('کابل و اتصالات های‌لینک', 'Hi-Link', 'hi-link', '/assets/images/img/Layer_2.png', 'کابل و اتصالات های‌لینک برای انتقال پایدار تصویر و داده در سیستم‌های نظارتی.'),
   ('خدمات گارانتی مانا سرویس', 'Mana Service', 'mana-service', '/assets/images/img/Layer_3.png', 'خدمات گارانتی و پشتیبانی فنی مانا سرویس برای محصولات امنیتی و نظارت تصویری.');

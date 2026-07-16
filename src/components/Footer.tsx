@@ -1,6 +1,11 @@
 import DOMPurify from "isomorphic-dompurify";
 import { CLUB_URL } from "@/lib/internalLinks";
-import { getSiteFooterConfig, badgeDimensions } from "@/lib/siteFooter";
+import {
+  ENAMAD_TRUST_SEAL_HTML,
+  getSiteFooterConfig,
+  badgeDimensions,
+  isEnamadBadge,
+} from "@/lib/siteFooter";
 
 const phoneHtmlSanitize = {
   ALLOWED_TAGS: ["small", "span", "br", "b", "i", "strong", "em"],
@@ -107,6 +112,14 @@ export async function Footer() {
           <div className="badges">
             {cfg.badges.map((b, i) => {
               if (!b.src) return null;
+              if (isEnamadBadge(b)) {
+                return (
+                  <span
+                    key={`bd-${i}`}
+                    dangerouslySetInnerHTML={{ __html: ENAMAD_TRUST_SEAL_HTML }}
+                  />
+                );
+              }
               const dims = badgeDimensions(b.src);
               return (
                 <img

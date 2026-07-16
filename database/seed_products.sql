@@ -1,31 +1,31 @@
 -- محصولات نمونه برای برندها. اجرای دوباره امن است (slug یکتا + INSERT IGNORE).
 
--- دههو (دوربین‌ها)
+-- دهو (دوربین‌ها)
 INSERT IGNORE INTO `products` (`brand_id`, `name`, `name_en`, `slug`, `cover_image`, `short_description`, `body`, `price`, `published`)
-SELECT b.id, 'دوربین مداربسته دیجیتال دههو DH-2200', 'DEHU DH-2200', 'dehu-dh-2200', '/assets/images/img/camera2.png',
+SELECT b.id, 'دوربین مداربسته دیجیتال دهو DH-2200', 'DEHU DH-2200', 'dehu-dh-2200', '/assets/images/img/camera2.png',
        'دوربین دیجیتال با کیفیت تصویر بالا، دید در شب و تشخیص چهره.',
-       '<p>دوربین مداربسته دیجیتال دههو DH-2200 با وضوح بالا، قابلیت ثبت تصاویر رنگی در شب و تاریکی مطلق، تشخیص چهره و شناسایی افراد را ارائه می‌دهد.</p><p>پشتیبانی از شبکه‌های بی‌سیم و سیمی و انتقال تصویر زنده از ویژگی‌های این محصول است.</p>',
+       '<p>دوربین مداربسته دیجیتال دهو DH-2200 با وضوح بالا، قابلیت ثبت تصاویر رنگی در شب و تاریکی مطلق، تشخیص چهره و شناسایی افراد را ارائه می‌دهد.</p><p>پشتیبانی از شبکه‌های بی‌سیم و سیمی و انتقال تصویر زنده از ویژگی‌های این محصول است.</p>',
        'تماس بگیرید', 1
 FROM `brands` b WHERE b.slug = 'dehu';
 
 INSERT IGNORE INTO `products` (`brand_id`, `name`, `name_en`, `slug`, `cover_image`, `short_description`, `body`, `price`, `published`)
-SELECT b.id, 'دوربین تحت شبکه دههو IP-Pro', 'DEHU IP-Pro', 'dehu-ip-pro', '/assets/images/img/catalog1.png',
+SELECT b.id, 'دوربین تحت شبکه دهو IP-Pro', 'DEHU IP-Pro', 'dehu-ip-pro', '/assets/images/img/catalog1.png',
        'دوربین تحت شبکه با زوم اپتیکال و ذخیره‌سازی ابری.',
-       '<p>دوربین تحت شبکه دههو IP-Pro مناسب پروژه‌های حرفه‌ای با امکان زوم اپتیکال و دیجیتال و ذخیره‌سازی در ابر.</p>',
+       '<p>دوربین تحت شبکه دهو IP-Pro مناسب پروژه‌های حرفه‌ای با امکان زوم اپتیکال و دیجیتال و ذخیره‌سازی در ابر.</p>',
        'تماس بگیرید', 1
 FROM `brands` b WHERE b.slug = 'dehu';
 
 INSERT IGNORE INTO `products` (`brand_id`, `name`, `name_en`, `slug`, `cover_image`, `short_description`, `body`, `price`, `published`)
-SELECT b.id, 'دوربین آنالوگ دههو AHD-1080', 'DEHU AHD-1080', 'dehu-ahd-1080', '/assets/images/img/Cameras1.png',
+SELECT b.id, 'دوربین آنالوگ دهو AHD-1080', 'DEHU AHD-1080', 'dehu-ahd-1080', '/assets/images/img/Cameras1.png',
        'دوربین آنالوگ مقرون‌به‌صرفه با کیفیت Full HD.',
-       '<p>دوربین آنالوگ دههو AHD-1080 انتخابی اقتصادی برای فضاهای داخلی و خارجی با کیفیت Full HD.</p>',
+       '<p>دوربین آنالوگ دهو AHD-1080 انتخابی اقتصادی برای فضاهای داخلی و خارجی با کیفیت Full HD.</p>',
        'تماس بگیرید', 1
 FROM `brands` b WHERE b.slug = 'dehu';
 
 INSERT IGNORE INTO `products` (`brand_id`, `name`, `name_en`, `slug`, `cover_image`, `short_description`, `body`, `price`, `published`)
-SELECT b.id, 'دستگاه ضبط NVR دههو ۸ کانال', 'DEHU NVR 8CH', 'dehu-nvr-8ch', '/assets/images/img/CamBox.png',
+SELECT b.id, 'دستگاه ضبط NVR دهو ۸ کانال', 'DEHU NVR 8CH', 'dehu-nvr-8ch', '/assets/images/img/CamBox.png',
        'دستگاه ضبط تحت شبکه ۸ کانال با پشتیبانی از هارد پرظرفیت.',
-       '<p>دستگاه ضبط NVR دههو ۸ کانال برای مدیریت و ذخیره‌سازی تصاویر چند دوربین به‌صورت هم‌زمان.</p>',
+       '<p>دستگاه ضبط NVR دهو ۸ کانال برای مدیریت و ذخیره‌سازی تصاویر چند دوربین به‌صورت هم‌زمان.</p>',
        'تماس بگیرید', 1
 FROM `brands` b WHERE b.slug = 'dehu';
 

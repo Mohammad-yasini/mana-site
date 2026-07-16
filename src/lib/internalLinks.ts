@@ -16,7 +16,7 @@ export const DEFAULT_HEADER_NAV: NavLink[] = [
 ];
 
 export const STATIC_BRAND_LINKS: NavLink[] = [
-  { label: "دوربین نظارتی دههو", href: "/brand/dehu" },
+  { label: "دوربین نظارتی دهو", href: "/brand/dehu" },
   { label: "آداپتور و تجهیزات یوتک", href: "/brand/utec" },
   { label: "کابل و اتصالات های‌لینک", href: "/brand/hi-link" },
   { label: "خدمات مانا سرویس", href: "/brand/mana-service" },
@@ -39,24 +39,29 @@ export const DEFAULT_FOOTER_QUICK_LINKS: NavLink[] = [
 
 export const DEFAULT_FOOTER_PHONES = [
   {
-    icon: "/assets/images/app-icons/meteor-icons_message.svg",
-    text: "SMS: 30007957951415",
-    href: CONTACT_SMS_URL,
+    icon: "/assets/images/app-icons/cil_phone.svg",
+    text: "دفتر مرکزی: 021-91300930",
+    href: "tel:+982191300930",
   },
   {
     icon: "/assets/images/app-icons/cil_phone.svg",
-    text: "Phone: 021-91300930",
-    href: CONTACT_PHONE_TEL,
+    text: "فروش: 09200747058",
+    href: "tel:+989200747058",
   },
   {
-    icon: "/assets/images/app-icons/ic_baseline-whatsapp.svg",
-    text: "whatsapp: +98-912000000",
-    href: CONTACT_WHATSAPP_URL,
+    icon: "/assets/images/app-icons/cil_phone.svg",
+    text: "فروش: 09200847058",
+    href: "tel:+989200847058",
   },
   {
-    icon: "/assets/images/app-icons/qlementine-icons_instagram-16.svg",
-    text: "instagram: @manaelectronic",
-    href: CONTACT_INSTAGRAM_URL,
+    icon: "/assets/images/app-icons/cil_phone.svg",
+    text: "پشتیبانی سایت: 09200947058",
+    href: "tel:+989200947058",
+  },
+  {
+    icon: "/assets/images/app-icons/cil_phone.svg",
+    text: "پشتیبانی فنی: 09142772610",
+    href: "tel:+989142772610",
   },
 ] as const;
 
