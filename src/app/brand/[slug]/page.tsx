@@ -50,7 +50,7 @@ export default async function BrandPage({ params }: Props) {
       `SELECT id, name, name_en, slug, cover_image, short_description, price
        FROM products
        WHERE published = 1 AND brand_id = ?
-       ORDER BY id DESC`,
+       ORDER BY name_en ASC`,
       [brandRow.id],
     );
     products = rows;
