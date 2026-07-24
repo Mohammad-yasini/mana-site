@@ -97,3 +97,21 @@
   color: #2563eb;
   white-space: nowrap;
 }
+
+.product-gallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 12px;
+  margin-top: 20px;
+}
+
+.product-gallery img {
+  width: 100%;
+  height: auto;
+  max-height: 280px;
+  object-fit: contain;
+  background: #f6f7f9;
+  border: 1px solid #eee;
+  border-radius: 12px;
+  padding: 10px;
+}
